@@ -1,0 +1,20 @@
+{
+  "$schema": "https://unpkg.com/knip@5/overview/configuration-schema.json",
+  "workspaces": {
+    "apps/web": {
+      "entry": ["app/**/{page,layout,not-found,loading,error}.tsx"]
+    }
+  },
+  "ignoreDependencies": [
+    "eslint-config-next",
+    "@stockan/config",
+    "prettier"
+  ],
+  "rules": {
+    "exports": "off",
+    "types": "off",
+    "dependencies": "error",
+    "devDependencies": "error",
+    "unlisted": "error"
+  }
+}

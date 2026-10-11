@@ -26,13 +26,23 @@ import {
 } from '@stockan/shared';
 import { AIToolRegistry } from './ai.tool-registry';
 
+import {
+  PROMPT_REGISTRY,
+  buildThesisPromptTemplate,
+  buildNLScreenerPromptTemplate,
+  buildFilingDiffPromptTemplate,
+  buildPortfolioRiskPromptTemplate,
+  buildAnomalyPromptTemplate,
+  buildBacktestPromptTemplate,
+} from './prompts';
+
 export const PROMPT_VERSIONS = {
-  thesis: 'v1.4.0',
-  nlScreener: 'v1.2.0',
-  filingDiff: 'v1.3.0',
-  portfolioRisk: 'v1.1.0',
-  anomalyExplainer: 'v1.2.0',
-  backtestAssistant: 'v1.5.0',
+  thesis: PROMPT_REGISTRY.thesis.version,
+  nlScreener: PROMPT_REGISTRY.nlScreener.version,
+  filingDiff: PROMPT_REGISTRY.filingDiff.version,
+  portfolioRisk: PROMPT_REGISTRY.portfolioRisk.version,
+  anomalyExplainer: PROMPT_REGISTRY.anomalyExplainer.version,
+  backtestAssistant: PROMPT_REGISTRY.backtestAssistant.version,
 };
 
 // Cache map for repeated tool calls and reports
@@ -98,6 +108,7 @@ export class AIService {
 
     // Step 3: Fetch filings
     const filings = await this.toolRegistry.getFilings(sym, toolLogs);
+    buildThesisPromptTemplate(sym, quote, fundamentals, filings);
 
     const latestStatement = fundamentals.statements[0];
     const latestFiling = filings[0];
@@ -230,6 +241,7 @@ export class AIService {
    * executed exclusively by our screener engine. The model never fabricates raw ticker lists.
    */
   async parseNLScreenerQuery(userPrompt: string): Promise<NLScreenerOutput> {
+    buildNLScreenerPromptTemplate(userPrompt);
     const promptLower = userPrompt.toLowerCase();
     const criteria: ScreenerCriterion[] = [];
     let interpretation = 'Converted plain request into validated screener AST.';
@@ -314,10 +326,39 @@ export class AIService {
   async diffFilings(symbol: string): Promise<FilingDiffReport> {
     const sym = symbol.toUpperCase();
     const toolLogs: ToolCallLog[] = [];
-    const filings = await this.toolRegistry.getFilings(sym, toolLogs);
-    const fundamentals = await this.toolRegistry.getFundamentals(sym, toolLogs);
+    let filings: any[] = [];
+    let fundamentals: any = null;
 
-    if (filings.length < 2 && fundamentals.statements.length < 2) {
+    try {
+      filings = await this.toolRegistry.getFilings(sym, toolLogs);
+      fundamentals = await this.toolRegistry.getFundamentals(sym, toolLogs);
+    } catch {
+      const report: FilingDiffReport = {
+        symbol: sym,
+        priorFilingId: 'N/A',
+        priorPeriodDate: 'N/A',
+        currentFilingId: 'N/A',
+        currentPeriodDate: 'N/A',
+        generatedAt: new Date().toISOString(),
+        promptVersion: PROMPT_VERSIONS.filingDiff,
+        dataSufficiency: 'insufficient_data',
+        changes: [],
+        riskFactorsSummary: `Unable to retrieve comparative financial disclosures for ticker ${sym}.`,
+        regulatoryNotice:
+          'Informational analysis only. Not investment or financial advice.',
+        toolCalls: toolLogs,
+        usage: {
+          promptTokens: 400,
+          completionTokens: 80,
+          totalTokens: 480,
+          estimatedCostUsd: calculateCost(400, 80),
+          cacheHit: false,
+        },
+      };
+      return FilingDiffReportSchema.parse(report);
+    }
+
+    if ((!filings || filings.length < 2) && (!fundamentals?.statements || fundamentals.statements.length < 2)) {
       const report: FilingDiffReport = {
         symbol: sym,
         priorFilingId: 'N/A',
@@ -345,6 +386,7 @@ export class AIService {
 
     const currStatement = fundamentals.statements[0]!;
     const priorStatement = fundamentals.statements[1]!;
+    buildFilingDiffPromptTemplate(sym, currStatement, priorStatement, filings);
 
     const revenueDelta =
       priorStatement.revenue > 0
@@ -458,6 +500,7 @@ export class AIService {
       returnsBySymbol,
       toolLogs
     );
+    buildPortfolioRiskPromptTemplate(portfolioId, risk, positions);
 
     const topPosition = [...positions].sort((a, b) => b.weightPercent - a.weightPercent)[0];
     const topSector = risk.sectorExposures[0];
@@ -537,6 +580,7 @@ export class AIService {
 
     const promptTokens = 1100;
     const completionTokens = 290;
+    buildAnomalyPromptTemplate(sym, quote, deviationMagnitudeSigma, anomalyType, [], filings);
 
     const report: AnomalyExplanationReport = {
       symbol: sym,
@@ -583,6 +627,7 @@ export class AIService {
   async assistBacktest(userDescription: string, symbol: string): Promise<BacktestAssistantResponse> {
     const sym = symbol.toUpperCase();
     const desc = userDescription.toLowerCase();
+    buildBacktestPromptTemplate(userDescription, symbol);
 
     // Deterministically build StrategySpec from description
     const spec: StrategySpec = {

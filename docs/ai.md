@@ -67,3 +67,16 @@ Each inference request meters:
 - Completion Tokens
 - Estimated Cost in USD (formula: `(prompt * $2.50 + completion * $10.00) / 1,000,000`)
 - Cache Hit Status (60-second TTL in-memory cache)
+
+---
+
+## Evaluation Suite & Regression Tests
+
+The AI layer is validated against fixed golden fixtures located in `apps/api/src/modules/ai/evals/eval-fixtures.ts` through the automated regression suite in `apps/api/src/modules/ai/evals/ai-eval.test.ts`.
+
+Evaluation invariants:
+1. **Schema Validity**: All AI feature outputs validate against shared Zod schemas (`packages/shared/src/ai.schema.ts`).
+2. **Numeric Fidelity & Provenance**: Claims must link to verified citations; numbers must strictly match tool records without hallucination.
+3. **AST Correctness**: Plain queries compile into valid ScreenerQuery AST criteria executed by the deterministic screener engine.
+4. **Deterministic Math**: Filing variances and portfolio risk metrics match exact mathematical calculations.
+5. **Data Sufficiency Handling**: Missing disclosures trigger an explicit `insufficient_data` status with a descriptive reason.

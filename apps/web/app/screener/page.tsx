@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../../lib/api-client';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
-import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from '../../components/ui/table';
+import { DataTable } from '../../components/ui/data-table';
+import { ColumnDef } from '@tanstack/react-table';
 import { GainLossBadge } from '../../components/ui/gain-loss-badge';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
@@ -14,7 +15,7 @@ import { Badge } from '../../components/ui/badge';
 import { formatCurrency, formatPercent, formatNumber } from '../../lib/formatters';
 import { STRINGS } from '../../content/strings';
 import { Filter, Plus, Trash2, Download, RefreshCw } from 'lucide-react';
-import type { ScreenerCriterion, ScreenerMetricField, FilterOperator } from '@stockan/shared';
+import type { ScreenerCriterion, ScreenerMetricField, FilterOperator, ScreenerResultRow } from '@stockan/shared';
 
 const AVAILABLE_FIELDS: { label: string; value: ScreenerMetricField }[] = [
   { label: 'Sector', value: 'sector' },
@@ -100,6 +101,89 @@ export default function ScreenerPage() {
   };
 
   const rows = result?.items ?? [];
+
+  const screenerColumns: ColumnDef<ScreenerResultRow>[] = [
+    {
+      accessorKey: 'symbol',
+      header: 'Symbol',
+      cell: ({ row }) => (
+        <div>
+          <Link href={`/symbol/${row.original.symbol}`} className="font-semibold text-foreground hover:underline">
+            {row.original.symbol}
+          </Link>
+          <span className="text-[11px] text-muted-foreground ml-2 font-normal">
+            {row.original.companyName}
+          </span>
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'sector',
+      header: 'Sector',
+      cell: ({ row }) => <span className="text-muted-foreground text-[11px]">{row.original.sector}</span>,
+    },
+    {
+      accessorKey: 'price',
+      header: () => <div className="text-right">Price</div>,
+      cell: ({ row }) => (
+        <div className="text-right font-mono font-medium">{formatCurrency(row.original.price)}</div>
+      ),
+    },
+    {
+      accessorKey: 'changePercent',
+      header: () => <div className="text-right">Change %</div>,
+      cell: ({ row }) => (
+        <div className="text-right">
+          <GainLossBadge value={row.original.changePercent} />
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'marketCap',
+      header: () => <div className="text-right">Market Cap</div>,
+      cell: ({ row }) => (
+        <div className="text-right font-mono text-muted-foreground">
+          {formatCurrency(row.original.marketCap, true)}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'peRatioTTM',
+      header: () => <div className="text-right">P/E (TTM)</div>,
+      cell: ({ row }) => (
+        <div className="text-right font-mono text-muted-foreground">
+          {row.original.peRatioTTM ? `${row.original.peRatioTTM}x` : '—'}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'dividendYield',
+      header: () => <div className="text-right">Dividend Yield</div>,
+      cell: ({ row }) => (
+        <div className="text-right font-mono text-muted-foreground">
+          {row.original.dividendYield ? `${row.original.dividendYield}%` : '0.00%'}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'returnOnEquity',
+      header: () => <div className="text-right">ROE</div>,
+      cell: ({ row }) => (
+        <div className="text-right font-mono text-muted-foreground">
+          {row.original.returnOnEquity ? `${row.original.returnOnEquity}%` : '—'}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'beta',
+      header: () => <div className="text-right">Beta</div>,
+      cell: ({ row }) => (
+        <div className="text-right font-mono text-muted-foreground">
+          {row.original.beta ? row.original.beta.toFixed(2) : '—'}
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
@@ -229,101 +313,12 @@ export default function ScreenerPage() {
               <Skeleton className="h-7 w-full" />
               <Skeleton className="h-7 w-full" />
             </div>
-          ) : rows.length > 0 ? (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead onClick={() => handleSort('price')} className="cursor-pointer">
-                    Symbol
-                  </TableHead>
-                  <TableHead>Sector</TableHead>
-                  <TableHead
-                    onClick={() => handleSort('price')}
-                    className="text-right cursor-pointer"
-                  >
-                    Price
-                  </TableHead>
-                  <TableHead
-                    onClick={() => handleSort('changePercent')}
-                    className="text-right cursor-pointer"
-                  >
-                    Change %
-                  </TableHead>
-                  <TableHead
-                    onClick={() => handleSort('marketCap')}
-                    className="text-right cursor-pointer"
-                  >
-                    Market Cap
-                  </TableHead>
-                  <TableHead
-                    onClick={() => handleSort('peRatioTTM')}
-                    className="text-right cursor-pointer"
-                  >
-                    P/E (TTM)
-                  </TableHead>
-                  <TableHead
-                    onClick={() => handleSort('dividendYield')}
-                    className="text-right cursor-pointer"
-                  >
-                    Dividend Yield
-                  </TableHead>
-                  <TableHead
-                    onClick={() => handleSort('returnOnEquity')}
-                    className="text-right cursor-pointer"
-                  >
-                    ROE
-                  </TableHead>
-                  <TableHead
-                    onClick={() => handleSort('beta')}
-                    className="text-right cursor-pointer"
-                  >
-                    Beta
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.symbol}>
-                    <TableCell className="font-semibold text-foreground">
-                      <Link href={`/symbol/${row.symbol}`} className="hover:underline">
-                        {row.symbol}
-                      </Link>
-                      <span className="text-[11px] text-muted-foreground ml-2 font-normal">
-                        {row.companyName}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-muted-foreground text-[11px]">
-                      {row.sector}
-                    </TableCell>
-                    <TableCell className="text-right font-mono font-medium">
-                      {formatCurrency(row.price)}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <GainLossBadge value={row.changePercent} />
-                    </TableCell>
-                    <TableCell className="text-right font-mono text-muted-foreground">
-                      {formatCurrency(row.marketCap, true)}
-                    </TableCell>
-                    <TableCell className="text-right font-mono text-muted-foreground">
-                      {row.peRatioTTM ? `${row.peRatioTTM}x` : '—'}
-                    </TableCell>
-                    <TableCell className="text-right font-mono text-muted-foreground">
-                      {row.dividendYield ? `${row.dividendYield}%` : '0.00%'}
-                    </TableCell>
-                    <TableCell className="text-right font-mono text-muted-foreground">
-                      {row.returnOnEquity ? `${row.returnOnEquity}%` : '—'}
-                    </TableCell>
-                    <TableCell className="text-right font-mono text-muted-foreground">
-                      {row.beta ? row.beta.toFixed(2) : '—'}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
           ) : (
-            <div className="p-8 text-center text-xs text-muted-foreground">
-              {STRINGS.screener.emptyState}
-            </div>
+            <DataTable
+              columns={screenerColumns}
+              data={rows}
+              emptyMessage={STRINGS.screener.emptyState}
+            />
           )}
         </CardContent>
       </Card>

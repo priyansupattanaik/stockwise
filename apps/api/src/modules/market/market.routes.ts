@@ -97,5 +97,60 @@ export const marketRoutes = (marketProvider: IMarketDataProvider): FastifyPlugin
         },
       };
     });
+
+    // Live Quotes SSE Stream
+    app.get('/stream', async (req, reply) => {
+      const query = req.query as { symbols?: string };
+      const symbolsList = query.symbols
+        ? query.symbols.split(',').map((s) => s.trim().toUpperCase())
+        : ['AAPL', 'MSFT', 'NVDA', 'GOOGL', 'AMZN'];
+
+      reply.raw.setHeader('Content-Type', 'text/event-stream');
+      reply.raw.setHeader('Cache-Control', 'no-cache');
+      reply.raw.setHeader('Connection', 'keep-alive');
+
+      const sendEvent = (event: string, data: any) => {
+        reply.raw.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
+      };
+
+      sendEvent('connected', {
+        status: 'connected',
+        subscribedSymbols: symbolsList,
+        timestamp: new Date().toISOString(),
+      });
+
+      // Stream initial quotes
+      for (const sym of symbolsList) {
+        try {
+          const q = await marketProvider.getQuote(sym);
+          sendEvent('quote', q);
+        } catch {
+          // ignore
+        }
+      }
+
+      const interval = setInterval(async () => {
+        const randomSym = symbolsList[Math.floor(Math.random() * symbolsList.length)];
+        if (!randomSym) return;
+        try {
+          const q = await marketProvider.getQuote(randomSym);
+          const jitter = (Math.random() - 0.5) * 0.2;
+          const updatedQuote = {
+            ...q,
+            price: Number((q.price + jitter).toFixed(2)),
+            change: Number((q.change + jitter).toFixed(2)),
+            changePercent: Number((((q.price + jitter - q.previousClose) / q.previousClose) * 100).toFixed(2)),
+            timestamp: new Date().toISOString(),
+          };
+          sendEvent('quote', updatedQuote);
+        } catch {
+          // ignore
+        }
+      }, 1000);
+
+      req.raw.on('close', () => {
+        clearInterval(interval);
+      });
+    });
   };
 };

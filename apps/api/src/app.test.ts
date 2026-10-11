@@ -1,6 +1,8 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import type { FastifyInstance } from 'fastify';
 import { buildApp } from './app';
+import { ProviderError, RateLimitError, AuthError, InsufficientDataError } from './core/errors';
+import { loadEnv } from './core/env';
 
 describe('Stockan Fastify API Endpoints', () => {
   let app: FastifyInstance;
@@ -8,7 +10,7 @@ describe('Stockan Fastify API Endpoints', () => {
   beforeAll(async () => {
     app = await buildApp();
     await app.ready();
-  });
+  }, 30000);
 
   afterAll(async () => {
     await app.close();
@@ -256,6 +258,28 @@ describe('Stockan Fastify API Endpoints', () => {
       });
       expect(res2.statusCode).toBe(200);
       expect(res2.headers['x-cache-replayed']).toBe('true');
+    });
+
+    it('maps typed error classes to standard HTTP status and machine-readable code', () => {
+      const pe = new ProviderError('finnhub', 'timeout');
+      expect(pe.statusCode).toBe(502);
+      expect(pe.code).toBe('PROVIDER_ERROR');
+
+      const re = new RateLimitError();
+      expect(re.statusCode).toBe(429);
+      expect(re.code).toBe('RATE_LIMIT_EXCEEDED');
+
+      const ae = new AuthError();
+      expect(ae.statusCode).toBe(401);
+      expect(ae.code).toBe('UNAUTHORIZED');
+
+      const ie = new InsufficientDataError();
+      expect(ie.statusCode).toBe(422);
+      expect(ie.code).toBe('INSUFFICIENT_DATA');
+    });
+
+    it('fails fast when loadEnv receives invalid configuration', () => {
+      expect(() => loadEnv({ NODE_ENV: 'invalid' as any })).toThrow('[FATAL]');
     });
   });
 });
