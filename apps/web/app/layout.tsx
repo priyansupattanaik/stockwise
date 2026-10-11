@@ -28,6 +28,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           name="description"
           content="Institutional-grade stock market quantitative analytics platform."
         />
+        <meta property="og:title" content="Stockwise | Stock Market Analysis & AI Workspace" />
+        <meta
+          property="og:description"
+          content="Institutional-grade stock market quantitative analytics platform."
+        />
+        <meta property="og:site_name" content="Stockwise" />
+        <meta property="og:type" content="website" />
       </head>
       <body className="min-h-screen bg-background text-foreground flex antialiased">
         <QueryClientProvider client={queryClient}>

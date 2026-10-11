@@ -2,6 +2,7 @@ export const STRINGS = {
   common: {
     appName: 'Stockwise',
     footer: 'Stockwise v1.0',
+    footerSubtitle: 'Deterministic analytics',
     appTagline: 'Institutional-grade quantitative analytics and deterministic AI research.',
     loading: 'Loading data...',
     errorPrefix: 'Error',
