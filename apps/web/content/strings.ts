@@ -1,6 +1,7 @@
 export const STRINGS = {
   common: {
-    appName: 'Stockan Platform',
+    appName: 'Stockwise',
+    footer: 'Stockwise v1.0',
     appTagline: 'Institutional-grade quantitative analytics and deterministic AI research.',
     loading: 'Loading data...',
     errorPrefix: 'Error',

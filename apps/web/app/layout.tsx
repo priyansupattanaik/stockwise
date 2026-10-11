@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={theme === 'dark' ? 'dark' : ''}>
       <head>
-        <title>Stockan | Stock Market Analysis & AI Workspace</title>
+        <title>Stockwise | Stock Market Analysis & AI Workspace</title>
         <meta
           name="description"
           content="Institutional-grade stock market quantitative analytics platform."

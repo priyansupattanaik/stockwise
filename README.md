@@ -1,4 +1,4 @@
-# Stockan Platform
+# Stockwise
 
 Institutional-grade stock market analysis platform featuring quantitative risk models, deterministic backtesting, and an AI analysis orchestrator with verifiable provenance.
 

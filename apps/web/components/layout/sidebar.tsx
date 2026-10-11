@@ -72,7 +72,7 @@ export function Sidebar() {
 
       {/* Footer Info */}
       <div className="p-4 border-t border-border/60 text-[11px] text-muted-foreground">
-        <p className="font-mono">US Equities v1.0</p>
+        <p className="font-mono">{STRINGS.common.footer}</p>
         <p className="text-[10px] text-muted-foreground/80 mt-0.5">Deterministic analytics</p>
       </div>
     </aside>

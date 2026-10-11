@@ -1,4 +1,4 @@
-import type { FinancialStatementItem, Filing } from '@stockan/shared';
+import type { FinancialStatementItem, Filing } from '@stockwise/shared';
 
 export const FILING_DIFF_PROMPT_VERSION = 'v1.3.0';
 

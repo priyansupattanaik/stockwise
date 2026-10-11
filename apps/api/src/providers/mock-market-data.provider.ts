@@ -11,7 +11,7 @@ import type {
   HistoryInterval,
   HistoryRange,
   ScreenerCriterion,
-} from '@stockan/shared';
+} from '@stockwise/shared';
 import type { IMarketDataProvider } from './market-data.interface';
 import { NotFoundError } from '../core/errors';
 

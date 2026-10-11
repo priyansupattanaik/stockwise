@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { runBacktest } from './backtest';
-import type { StrategySpec, OHLCV } from '@stockan/shared';
+import type { StrategySpec, OHLCV } from '@stockwise/shared';
 
 describe('Deterministic Backtest Engine', () => {
   const sampleBars: OHLCV[] = Array.from({ length: 50 }, (_, i) => {

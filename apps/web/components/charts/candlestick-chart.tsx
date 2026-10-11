@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import type { OHLCV } from '@stockan/shared';
-import { calculateSMA } from '@stockan/analytics';
+import type { OHLCV } from '@stockwise/shared';
+import { calculateSMA } from '@stockwise/analytics';
 import { formatCurrency, formatNumber, formatDate } from '../../lib/formatters';
 
 interface CandlestickChartProps {

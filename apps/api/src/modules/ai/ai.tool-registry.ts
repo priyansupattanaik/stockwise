@@ -9,9 +9,9 @@ import type {
   StrategySpec,
   BacktestExecutionReport,
   ToolCallLog,
-} from '@stockan/shared';
+} from '@stockwise/shared';
 import type { IMarketDataProvider } from '../../providers/market-data.interface';
-import { calculateFullPortfolioRisk, runBacktest } from '@stockan/analytics';
+import { calculateFullPortfolioRisk, runBacktest } from '@stockwise/analytics';
 export class AIToolRegistry {
   constructor(private readonly marketDataProvider: IMarketDataProvider) {}
 

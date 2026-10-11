@@ -1,4 +1,4 @@
-import type { Quote, Fundamentals, Filing } from '@stockan/shared';
+import type { Quote, Fundamentals, Filing } from '@stockwise/shared';
 
 export const THESIS_PROMPT_VERSION = 'v1.4.0';
 

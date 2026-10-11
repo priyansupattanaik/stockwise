@@ -10,7 +10,7 @@ import {
   PortfolioRiskExplanationSchema,
   AnomalyExplanationReportSchema,
   BacktestAssistantResponseSchema,
-} from '@stockan/shared';
+} from '@stockwise/shared';
 import { PROMPT_REGISTRY } from '../prompts';
 
 describe('AI Evaluation Suite (Golden Fixtures & Regression Tests)', () => {

@@ -1,8 +1,8 @@
-# Stockan AI Reasoning Layer Specification
+# Stockwise AI Reasoning Layer Specification
 
 ## Overview
 
-The Stockan AI layer is implemented as a tool-orchestrated reasoning engine. It performs quantitative analysis and provenance-backed synthesis rather than summarization or generative speculation.
+The Stockwise AI layer is implemented as a tool-orchestrated reasoning engine. It performs quantitative analysis and provenance-backed synthesis rather than summarization or generative speculation.
 
 ### Core Constraints
 1. **Zero Hallucinated Numbers**: Every single number returned in reports must originate from a tool invocation or pure mathematical code execution.

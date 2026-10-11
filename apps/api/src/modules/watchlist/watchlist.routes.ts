@@ -1,7 +1,7 @@
 import type { FastifyPluginAsync } from 'fastify';
 import type { IMarketDataProvider } from '../../providers/market-data.interface';
-import type { Watchlist } from '@stockan/shared';
-import { CreateWatchlistRequestSchema } from '@stockan/shared';
+import type { Watchlist } from '@stockwise/shared';
+import { CreateWatchlistRequestSchema } from '@stockwise/shared';
 import { NotFoundError } from '../../core/errors';
 import { randomUUID } from 'crypto';
 

@@ -6,7 +6,7 @@ const ApiEnvSchema = z.object({
   HOST: z.string().default('0.0.0.0'),
   DATABASE_URL: z
     .string()
-    .default('postgresql://postgres:postgres@localhost:5432/stockan?schema=public'),
+    .default('postgresql://postgres:postgres@localhost:5432/stockwise?schema=public'),
   REDIS_URL: z.string().default('redis://localhost:6379'),
   MARKET_DATA_PROVIDER: z.enum(['mock', 'stooq', 'alphavantage', 'finnhub']).default('mock'),
   MARKET_DATA_API_KEY: z.string().default(''),

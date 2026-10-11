@@ -4,7 +4,7 @@ import type {
   DrawdownScenario,
   MonteCarloResult,
   PortfolioRiskMetrics,
-} from '@stockan/shared';
+} from '@stockwise/shared';
 
 /**
  * Calculates simple percentage returns from a price series.

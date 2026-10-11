@@ -7,7 +7,7 @@
   },
   "ignoreDependencies": [
     "eslint-config-next",
-    "@stockan/config",
+    "@stockwise/config",
     "prettier"
   ],
   "rules": {

@@ -1,4 +1,4 @@
-import type { ApiErrorEnvelope } from '@stockan/shared';
+import type { ApiErrorEnvelope } from '@stockwise/shared';
 
 export type ErrorCode =
   | 'VALIDATION_ERROR'

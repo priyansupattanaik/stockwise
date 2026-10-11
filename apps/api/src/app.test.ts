@@ -4,7 +4,7 @@ import { buildApp } from './app';
 import { ProviderError, RateLimitError, AuthError, InsufficientDataError } from './core/errors';
 import { loadEnv } from './core/env';
 
-describe('Stockan Fastify API Endpoints', () => {
+describe('Stockwise Fastify API Endpoints', () => {
   let app: FastifyInstance;
 
   beforeAll(async () => {
@@ -21,7 +21,7 @@ describe('Stockan Fastify API Endpoints', () => {
     expect(res.statusCode).toBe(200);
     const body = JSON.parse(res.payload);
     expect(body.status).toBe('ok');
-    expect(body.service).toBe('stockan-api');
+    expect(body.service).toBe('stockwise-api');
   });
 
   describe('Market Data Endpoints', () => {

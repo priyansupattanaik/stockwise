@@ -1,5 +1,5 @@
 {
-  "name": "@stockan/shared",
+  "name": "@stockwise/shared",
   "version": "1.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -15,7 +15,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@stockan/config": "workspace:*",
+    "@stockwise/config": "workspace:*",
     "typescript": "^5.7.3",
     "vitest": "^3.0.5"
   }

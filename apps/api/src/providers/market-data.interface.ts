@@ -9,7 +9,7 @@ import type {
   ScreenerResult,
   HistoryInterval,
   HistoryRange,
-} from '@stockan/shared';
+} from '@stockwise/shared';
 
 export interface IMarketDataProvider {
   readonly providerName: string;

@@ -1,4 +1,4 @@
-import type { PortfolioRiskMetrics, Position } from '@stockan/shared';
+import type { PortfolioRiskMetrics, Position } from '@stockwise/shared';
 
 export const PORTFOLIO_RISK_PROMPT_VERSION = 'v1.1.0';
 

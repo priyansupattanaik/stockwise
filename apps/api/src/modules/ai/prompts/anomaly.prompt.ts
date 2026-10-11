@@ -1,4 +1,4 @@
-import type { Quote, Filing, NewsItem } from '@stockan/shared';
+import type { Quote, Filing, NewsItem } from '@stockwise/shared';
 
 export const ANOMALY_PROMPT_VERSION = 'v1.2.0';
 

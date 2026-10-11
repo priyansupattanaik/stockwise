@@ -1,6 +1,6 @@
 import type { FastifyPluginAsync } from 'fastify';
 import type { IMarketDataProvider } from '../../providers/market-data.interface';
-import { ScreenerQuerySchema, type ScreenerPreset } from '@stockan/shared';
+import { ScreenerQuerySchema, type ScreenerPreset } from '@stockwise/shared';
 
 const DEFAULT_PRESETS: ScreenerPreset[] = [
   {

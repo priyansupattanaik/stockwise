@@ -1,7 +1,7 @@
 import type {
   ScreenerCriterion,
   Position,
-} from '@stockan/shared';
+} from '@stockwise/shared';
 
 export interface ThesisEvalFixture {
   symbol: string;

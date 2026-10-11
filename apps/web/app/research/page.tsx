@@ -33,7 +33,7 @@ import type {
   PortfolioRiskExplanation,
   AnomalyExplanationReport,
   BacktestAssistantResponse,
-} from '@stockan/shared';
+} from '@stockwise/shared';
 
 function ResearchWorkspaceContent() {
   const searchParams = useSearchParams();

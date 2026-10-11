@@ -1,7 +1,7 @@
 import type { FastifyPluginAsync } from 'fastify';
 import type { IMarketDataProvider } from '../../providers/market-data.interface';
-import type { AlertRule, AlertNotification } from '@stockan/shared';
-import { CreateAlertRequestSchema } from '@stockan/shared';
+import type { AlertRule, AlertNotification } from '@stockwise/shared';
+import { CreateAlertRequestSchema } from '@stockwise/shared';
 import { NotFoundError } from '../../core/errors';
 import { randomUUID } from 'crypto';
 

@@ -1,5 +1,5 @@
 {
-  "name": "@stockan/analytics",
+  "name": "@stockwise/analytics",
   "version": "1.0.0",
   "private": true,
   "main": "./src/index.ts",
@@ -12,10 +12,10 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@stockan/shared": "workspace:*"
+    "@stockwise/shared": "workspace:*"
   },
   "devDependencies": {
-    "@stockan/config": "workspace:*",
+    "@stockwise/config": "workspace:*",
     "typescript": "^5.7.3",
     "vitest": "^3.0.5"
   }

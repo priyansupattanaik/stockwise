@@ -15,7 +15,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../../components/ui
 import { formatCurrency, formatPercent, formatNumber, formatDate } from '../../../lib/formatters';
 import { STRINGS } from '../../../content/strings';
 import { Clock, Cpu, ExternalLink, BookmarkPlus } from 'lucide-react';
-import type { HistoryRange } from '@stockan/shared';
+import type { HistoryRange } from '@stockwise/shared';
 
 export default function SymbolDetailPage() {
   const params = useParams();

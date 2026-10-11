@@ -8,7 +8,7 @@ async function main() {
   try {
     const app = await buildApp();
     await app.listen({ port: env.PORT, host: env.HOST });
-    logger.info(`Stockan API server running at http://${env.HOST}:${env.PORT}`);
+    logger.info(`Stockwise API server running at http://${env.HOST}:${env.PORT}`);
     logger.info(`Interactive API Documentation at http://${env.HOST}:${env.PORT}/docs`);
   } catch (err) {
     logger.error('Failed to start server', err);

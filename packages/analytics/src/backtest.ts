@@ -4,7 +4,7 @@ import type {
   TradeRecord,
   BacktestExecutionReport,
   BacktestRuleCondition,
-} from '@stockan/shared';
+} from '@stockwise/shared';
 import { calculateSMA, calculateEMA, calculateRSI } from './indicators';
 import { calculateMaxDrawdown, calculateSharpeRatio, calculateReturns } from './risk';
 

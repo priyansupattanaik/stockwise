@@ -1,4 +1,4 @@
-import type { OHLCV } from '@stockan/shared';
+import type { OHLCV } from '@stockwise/shared';
 
 /**
  * Calculates Simple Moving Average (SMA).

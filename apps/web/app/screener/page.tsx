@@ -15,7 +15,7 @@ import { Badge } from '../../components/ui/badge';
 import { formatCurrency, formatPercent, formatNumber } from '../../lib/formatters';
 import { STRINGS } from '../../content/strings';
 import { Filter, Plus, Trash2, Download, RefreshCw } from 'lucide-react';
-import type { ScreenerCriterion, ScreenerMetricField, FilterOperator, ScreenerResultRow } from '@stockan/shared';
+import type { ScreenerCriterion, ScreenerMetricField, FilterOperator, ScreenerResultRow } from '@stockwise/shared';
 
 const AVAILABLE_FIELDS: { label: string; value: ScreenerMetricField }[] = [
   { label: 'Sector', value: 'sector' },
@@ -94,7 +94,7 @@ export default function ScreenerPage() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `stockan-screen-${Date.now()}.csv`);
+    link.setAttribute('download', `stockwise-screen-${Date.now()}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

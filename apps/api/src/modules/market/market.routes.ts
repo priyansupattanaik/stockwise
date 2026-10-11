@@ -1,6 +1,6 @@
 import type { FastifyPluginAsync } from 'fastify';
 import type { IMarketDataProvider } from '../../providers/market-data.interface';
-import { HistoryIntervalSchema, HistoryRangeSchema } from '@stockan/shared';
+import { HistoryIntervalSchema, HistoryRangeSchema } from '@stockwise/shared';
 
 export const marketRoutes = (marketProvider: IMarketDataProvider): FastifyPluginAsync => {
   return async (app) => {

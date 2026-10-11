@@ -1,7 +1,7 @@
 import type { FastifyPluginAsync } from 'fastify';
 import type { IMarketDataProvider } from '../../providers/market-data.interface';
-import type { Portfolio, Position } from '@stockan/shared';
-import { calculateFullPortfolioRisk } from '@stockan/analytics';
+import type { Portfolio, Position } from '@stockwise/shared';
+import { calculateFullPortfolioRisk } from '@stockwise/analytics';
 import { NotFoundError } from '../../core/errors';
 import { randomUUID } from 'crypto';
 

@@ -196,10 +196,10 @@ importers:
       '@fastify/swagger-ui':
         specifier: ^5.2.2
         version: 5.2.6
-      '@stockan/analytics':
+      '@stockwise/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
-      '@stockan/shared':
+      '@stockwise/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       fastify:
@@ -209,7 +209,7 @@ importers:
         specifier: ^3.24.1
         version: 3.25.76
     devDependencies:
-      '@stockan/config':
+      '@stockwise/config':
         specifier: workspace:*
         version: link:../../packages/config
       '@types/node':
@@ -227,10 +227,10 @@ importers:
 
   apps/web:
     dependencies:
-      '@stockan/analytics':
+      '@stockwise/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
-      '@stockan/shared':
+      '@stockwise/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       '@tanstack/react-query':
@@ -264,7 +264,7 @@ importers:
         specifier: ^5.0.3
         version: 5.0.15(@types/react@19.3.0)(react@19.3.0)
     devDependencies:
-      '@stockan/config':
+      '@stockwise/config':
         specifier: workspace:*
         version: link:../../packages/config
       '@types/node':
@@ -300,11 +300,11 @@ importers:
 
   packages/analytics:
     dependencies:
-      '@stockan/shared':
+      '@stockwise/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
-      '@stockan/config':
+      '@stockwise/config':
         specifier: workspace:*
         version: link:../config
       typescript:
@@ -326,7 +326,7 @@ importers:
         specifier: ^3.24.1
         version: 3.25.76
     devDependencies:
-      '@stockan/config':
+      '@stockwise/config':
         specifier: workspace:*
         version: link:../config
       typescript:

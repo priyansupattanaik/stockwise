@@ -38,7 +38,7 @@ export async function buildApp() {
   await app.register(swagger, {
     openapi: {
       info: {
-        title: 'Stockan Platform API',
+        title: 'Stockwise Platform API',
         description:
           'Institutional-grade stock market analysis platform with deterministic AI tool orchestration.',
         version: '1.0.0',
@@ -58,7 +58,7 @@ export async function buildApp() {
   app.get('/health', async () => {
     return {
       status: 'ok',
-      service: 'stockan-api',
+      service: 'stockwise-api',
       timestamp: new Date().toISOString(),
       provider: env.MARKET_DATA_PROVIDER,
     };

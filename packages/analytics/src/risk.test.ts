@@ -16,7 +16,7 @@ import {
   computeDrawdownScenarios,
   runMonteCarloSimulation,
 } from './risk';
-import type { Position } from '@stockan/shared';
+import type { Position } from '@stockwise/shared';
 
 describe('Risk Analytics', () => {
   it('calculates returns and stats correctly', () => {

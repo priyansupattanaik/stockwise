@@ -1,8 +1,8 @@
-# Stockan Platform Architecture
+# Stockwise Architecture
 
 ## 1. System Overview
 
-Stockan is an institutional-grade stock market analysis platform built with a TypeScript monorepo using pnpm workspaces. The architecture decouples analytical computations and data contracts from UI rendering and external vendor integrations.
+Stockwise is an institutional-grade stock market analysis platform built with a TypeScript monorepo using pnpm workspaces. The architecture decouples analytical computations and data contracts from UI rendering and external vendor integrations.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -25,9 +25,9 @@ Stockan is an institutional-grade stock market analysis platform built with a Ty
 ┌─────────────────────────────▼───────────────────────────────┐
 │                   Packages / Dependencies                   │
 │                                                             │
-│  @stockan/shared      Zod schemas, typed API envelopes      │
-│  @stockan/analytics   Pure TS: Indicators, Risk, Backtest   │
-│  @stockan/config      Base TSConfig, Tailwind tokens        │
+│  @stockwise/shared      Zod schemas, typed API envelopes      │
+│  @stockwise/analytics   Pure TS: Indicators, Risk, Backtest   │
+│  @stockwise/config      Base TSConfig, Tailwind tokens        │
 └─────────────────────────────────────────────────────────────┘
 ```
 

@@ -7,7 +7,7 @@ import {
   calculateBollingerBands,
   calculateATR,
 } from './indicators';
-import type { OHLCV } from '@stockan/shared';
+import type { OHLCV } from '@stockwise/shared';
 
 describe('Technical Indicators', () => {
   it('calculates SMA correctly and handles empty/boundary cases', () => {

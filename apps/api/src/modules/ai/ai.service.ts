@@ -14,7 +14,7 @@ import type {
   TokenUsage,
   ScreenerCriterion,
   ScreenerQuery,
-} from '@stockan/shared';
+} from '@stockwise/shared';
 import {
   ThesisReportSchema,
   NLScreenerOutputSchema,
@@ -23,7 +23,7 @@ import {
   AnomalyExplanationReportSchema,
   BacktestAssistantResponseSchema,
   ScreenerQuerySchema,
-} from '@stockan/shared';
+} from '@stockwise/shared';
 import { AIToolRegistry } from './ai.tool-registry';
 
 import {
