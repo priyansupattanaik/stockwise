@@ -22,7 +22,10 @@ import type {
   BacktestAssistantResponse,
 } from '@stockwise/shared';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/v1';
+const API_BASE =
+  process.env.NEXT_PUBLIC_STOCKWISE_API_URL ||
+  process.env.NEXT_PUBLIC_API_URL ||
+  'http://localhost:4000/v1';
 
 const ApiResponseSchema = z.object({
   success: z.boolean(),

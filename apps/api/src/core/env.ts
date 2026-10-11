@@ -19,7 +19,15 @@ const ApiEnvSchema = z.object({
 export type ApiEnv = z.infer<typeof ApiEnvSchema>;
 
 export function loadEnv(overrideEnv: Record<string, string | undefined> = process.env): ApiEnv {
-  const result = ApiEnvSchema.safeParse(overrideEnv);
+  const normalized: Record<string, string | undefined> = { ...overrideEnv };
+  for (const [key, val] of Object.entries(overrideEnv)) {
+    if (key.startsWith('STOCKWISE_') && val !== undefined) {
+      const unprefixed = key.slice('STOCKWISE_'.length);
+      normalized[unprefixed] = val;
+    }
+  }
+
+  const result = ApiEnvSchema.safeParse(normalized);
   if (!result.success) {
     const formatted = result.error.format();
     const missing = Object.keys(formatted).filter((k) => k !== '_errors');

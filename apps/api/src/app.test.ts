@@ -281,5 +281,22 @@ describe('Stockwise Fastify API Endpoints', () => {
     it('fails fast when loadEnv receives invalid configuration', () => {
       expect(() => loadEnv({ NODE_ENV: 'invalid' as any })).toThrow('[FATAL]');
     });
+
+    it('supports and prioritizes STOCKWISE_ environment variable prefix', () => {
+      const config = loadEnv({
+        STOCKWISE_PORT: '5555',
+        STOCKWISE_DATABASE_URL: 'postgresql://localhost:5432/custom_stockwise',
+        STOCKWISE_LLM_PROVIDER: 'openai',
+      });
+      expect(config.PORT).toBe(5555);
+      expect(config.DATABASE_URL).toBe('postgresql://localhost:5432/custom_stockwise');
+      expect(config.LLM_PROVIDER).toBe('openai');
+
+      const overrideConfig = loadEnv({
+        PORT: '4000',
+        STOCKWISE_PORT: '8888',
+      });
+      expect(overrideConfig.PORT).toBe(8888);
+    });
   });
 });

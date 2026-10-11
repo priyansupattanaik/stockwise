@@ -24,3 +24,8 @@ pnpm-debug.log*
 # OS Files
 .DS_Store
 Thumbs.db
+
+# Tool & Assistant artifacts
+.grok/
+skills-lock.json
+

@@ -17,6 +17,9 @@ export const STRINGS = {
     delayedQuoteNotice: 'Delayed quote data by 15 minutes. For informational purposes only.',
     regulatoryDisclaimer:
       'Past performance is not indicative of future results. All figures and backtest models are deterministic computations and do not constitute financial advice.',
+    notFoundTitle: 'Page not found',
+    notFoundSubtitle: 'The requested resource or page does not exist or has been moved.',
+    backToDashboard: 'Return to Dashboard',
   },
   navigation: {
     dashboard: 'Dashboard',
