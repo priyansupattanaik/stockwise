@@ -83,16 +83,23 @@ pnpm dev:web   # Starts Next.js Web on http://localhost:3000
 
 Run all test suites across the monorepo:
 ```bash
-pnpm --recursive run test
+pnpm test
 ```
-*Current test suite: 42 unit, contract, integration, and copy-lint tests passing.*
+*Current test suite: 56 automated unit, contract, integration, and AI eval suite tests passing.*
 
 Run strict typecheck across all workspaces:
 ```bash
-pnpm --recursive run typecheck
+pnpm typecheck
+```
+
+Run ESLint, Knip dead-code check, and JSCPD duplication check:
+```bash
+pnpm lint
+pnpm knip
+pnpm jscpd
 ```
 
 Build production packages and static bundles:
 ```bash
-pnpm run build
+pnpm build
 ```
